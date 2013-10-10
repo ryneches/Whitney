@@ -2,6 +2,89 @@
 
 from numpy import linspace, pi, sin, cos
 from random import random
+import argparse
+
+def spin( args ) :
+    center_x        = args.center_x
+    center_y        = args.center_y
+    radius_1        = args.radius_1
+    radius_2        = args.radius_2
+    height          = args.height
+    layer_steps     = args.layer_steps
+    layer_height    = args.layer_height
+    extrude         = args.extrude
+
+    print '\n'.join( matcone(   center_x,
+                                center_y, 
+                                radius_1,
+                                radius_2,
+                                height,
+                                layer_steps,
+                                layer_height,
+                                extrude ) )
+
+parser = argparse.ArgumentParser(
+                description = 'A gcode generator for nonwoven textiles. All units are in millimeters.',
+                prog        = 'spinner.py' )
+
+parser.set_defaults( func=spin )
+
+parser.add_argument('-cx',
+                    action      = 'store',
+                    dest        = 'center_x',
+                    type        = float,
+                    required    = True,
+                    help        = 'X position of center' )
+
+parser.add_argument('-cy',
+                    action      = 'store',
+                    dest        = 'center_y',
+                    type        = float,
+                    required    = True,
+                    help        = 'Y position of center' )
+
+parser.add_argument('-r1',
+                    action      = 'store',
+                    dest        = 'radius_1',
+                    type        = float,
+                    required    = True,
+                    help        = 'bottom radius' )
+
+parser.add_argument('-r2',
+                    action      = 'store',
+                    dest        = 'radius_2',
+                    type        = float,
+                    required    = True,
+                    help        = 'top radius' )
+
+parser.add_argument('-v',
+                    action      = 'store',
+                    dest        = 'height',
+                    type        = float,
+                    required    = True,
+                    help        = 'height of part' )
+
+parser.add_argument('-s',
+                    action      = 'store',
+                    dest        = 'layer_steps',
+                    type        = int,
+                    required    = True,
+                    help        = 'number of steps per layer' )
+
+parser.add_argument('-l',
+                    action      = 'store',
+                    dest        = 'layer_height',
+                    type        = float,
+                    required    = True,
+                    help        = 'layer height' )
+
+parser.add_argument('-e',
+                    action      = 'store',
+                    dest        = 'extrude',
+                    type        = float,
+                    required    = True,
+                    help        = 'cubic mm per linear mm of material' )
+
 
 # machine parameters for Ultimaker
 MARGIN          = 20
@@ -98,5 +181,6 @@ def matcone(center_x,
     
     return commands
    
+args = parser.parse_args()
+args.func(args)
 
-print '\n'.join( matcone( 100, 100, 20, 30, 10, 32, 0.1, 10.0 ) )
