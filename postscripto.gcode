@@ -2,6 +2,7 @@
 ;End GCode
 M104 S0                     ;extruder heater off
 M140 S0                     ;heated bed heater off (if you have it)
+M106 S0                     ;fan off
 G91                         ;relative positioning
 G1 F300 E-1
 G1 X-20.0 Y-20.0 Z0.5 F9000 E-5
