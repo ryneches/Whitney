@@ -10,4 +10,5 @@ G1 Z15.0 F180   ;raise to 15mm
 G92 E0          ;zero the extruded length
 G1 F200 E3      ;extrude 3mm
 G92 E0          ;zero the extruded length again
+M83             ;set extruder to relative mode
 G1 F9000        ;set feedrate
