@@ -1,4 +1,7 @@
+all : wool.gcode
 
+clean :
+	rm wool.gcode
 
 wool.gcode : spinner.py postscripto.gcode preamble.gcode 
 	cat preamble.gcode > wool.gcode &&  \
